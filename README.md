@@ -13,28 +13,37 @@
 
 
 ## Definicija problema:
-
+<p align="justify">
 Detekcija, lokalizacija i prepoznavanje glumaca na video isečcima u realnom vremenu i prikazivanje nekih njihovih osobina kao što su starost, pol i rasa.
-
+</p>
 
 ## Skup podataka:
 
+<p align="justify">
 Za treniranje SVM višeklasnog klasifikatora, korišćen je ručno kreiran skup podataka, koji se sastoji od 924 slike. Taj skup čini 9 glumaca (Angelina Jolie, Benedict Cumberbatch, Brad Pitt, Chadwick Boseman, Emma Watson, Keanu Reeves, Robert Downey-Junior, Scarlett Johansson i Tom Holland), uslikanih pod različitim uglovima i situacijama.
-Klasifikatori starosti i pola su pretrenirani modeli dubokih neuronskih mreža trenirani od strane [Tal Hassner i Gil Levi].
+Klasifikatori starosti i pola su pretrenirani modeli dubokih neuronskih mreža trenirani od strane <a href="https://talhassner.github.io/home/projects/Adience/Adience-data.html">Tal Hassner i Gil Levi</a>.
 Klasifikator za rasu je pretrenirana neuronska mreža koja se nalazi u DeepFace pajton radnom okviru.
+</p>
 
 ## Metodologija:
-
-Prepoznavanje jeste proces sastavljen od više koraka, počevši od detekcije face. Za detekciju face na slici korišćen je pretrenirani [Haar Cascade Classifier], jer je pogodan za detektciju u realnom vremenu zbog brzine. Zarad boljeg treniranja vrši se centralizacija detektovane face na osnovu pretreniranog modela koji detektuje 68 specifičnih tačaka na licu. Centralizovana lica ekstraktuje [HOG] (Histogram of Oriented Gradients) ekstraktor obeležja, koji redukuje nepotrebne piksele i čuva informacije bitne SVM klasifikatoru koji vrši prepoznavanje. 
+<p align="justify">
+Prepoznavanje jeste proces sastavljen od više koraka, počevši od detekcije face. Za detekciju face na slici korišćen je pretrenirani <a href="https://towardsdatascience.com/hog-histogram-of-oriented-gradients-67ecd887675f">Haar Cascade Classifier</a>, jer je pogodan za detektciju u realnom vremenu zbog brzine. Zarad boljeg treniranja vrši se centralizacija detektovane face na osnovu pretreniranog modela koji detektuje 68 specifičnih tačaka na licu. Centralizovana lica ekstraktuje 
+ <a href="https://towardsdatascience.com/hog-histogram-of-oriented-gradients-67ecd887675f">HOG</a> (Histogram of Oriented Gradients) ekstraktor obeležja, koji redukuje nepotrebne piksele i čuva informacije bitne SVM klasifikatoru koji vrši prepoznavanje. 
 Klasifikatori za prepoznavanje pola, starosti i rase ne koristi ekstraktovana lica, nego direktno isečena sa slike.
-Za prepoznavanje pola i godina korišćeni su pretrenirani modeli duboke neuronske mreže koji su istrenirani od strane [Tal Hassner i Gil Levi]. 
+Za prepoznavanje pola i godina korišćeni su pretrenirani modeli duboke neuronske mreže koji su istrenirani od strane <a href="https://talhassner.github.io/home/projects/Adience/Adience-data.html">Tal Hassner i Gil Levi</a>. 
 Za prepoznavanje rase korišćen je DeepFace pajton radni okvir koji u sebi sadrži pretreniranu neuronsku mrežu.
+</p>
 
 ## Evaluacija:
-
+<p align="justify">
 Za klasifikaciju korišćene su mere performanse kao što su preciznost, tačnost, odziv i F mera, a za lokalizaciju mAP (mean Average Precision). Mereni su odnosi tih vrednosti kroz broj frejmova po sekundi koje model može da obradi.
+</p>
 
-## Pokretanje
+
+## Demo:
+![Scarlett_Downey_video2_demo_1](https://user-images.githubusercontent.com/58345648/150875341-4c40b093-dec0-4325-ac4e-22a2728d253d.gif)
+
+## Potrebne biblioteke:
 Projekat pokretan sa [Python 3.6].
 Potrebne biblioteke:
  - [numpy] - [1.19.5+]
@@ -46,15 +55,15 @@ Potrebne biblioteke:
 
 Za implementaiju korišćeno [Jupyter] okrženje verzije 1.0.0.
 
-## Proces pokretanja u Anaconda3 virtuelnom okruženju
+## Proces pokretanja u Anaconda3 virtuelnom okruženju:
 
 1. Potrebno je da preuzmete projekat sa github repozitorijuma.
-2. Nakon što ste instalirali [Anaconda3] virtuelno okruženje, potrebno je da kreirate sopstveno virtuelno orkuženje tako što se pozicionirate na putanju projekta "soft-computing" u (base) conda prompt-u i pokrenete komande
+2. Nakon što ste instalirali [Anaconda3] virtuelno okruženje, potrebno je da kreirate sopstveno virtuelno orkuženje tako što se pozicionirate na putanju projekta "soft-computing" u (base) conda prompt-u i pokrenete komande:
     ```sh
     - conda create --name soft
     - conda activate soft
     ```
-3. Potom je potrebno da pokrenete sledece komande (Srećno :))
+3. Potom je potrebno da pokrenete sledece komande (Srećno :) 
     ```sh
     - conda install ipykernel
     - conda install python=3.6
@@ -77,6 +86,3 @@ Za implementaiju korišćeno [Jupyter] okrženje verzije 1.0.0.
 [scikit-learn]: https://pypi.org/project/scikit-learn/
 [deepface]: https://pypi.org/project/deepface/
 [Anaconda3]: https://www.anaconda.com/products/individual
-[Tal Hassner i Gil Levi]: https://talhassner.github.io/home/projects/Adience/Adience-data.html
-[Haar Cascade Classifier]: https://www.cs.cmu.edu/~efros/courses/LBMV07/Papers/viola-cvpr-01.pdf
-[HOG]: https://towardsdatascience.com/hog-histogram-of-oriented-gradients-67ecd887675f
