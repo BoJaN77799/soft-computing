@@ -14,17 +14,69 @@
 
 ## Definicija problema:
 
-Detekcija, lokalizacija i prepoznavanje glumaca kao i njihovih osobina (starost, pol i rasa) na isečcima iz filmova, s tim da će se detekcija, lokalizacija i prepoznavanje glumca vršiti u realnom vremenu.
+Detekcija, lokalizacija i prepoznavanje glumaca na video isečcima u realnom vremenu i prikazivanje nekih njihovih osobina kao što su starost, pol i rasa.
 
 
 ## Skup podataka:
 
-Slike glumaca ćemo prikupiti ručno, odnosno prikupićemo dovoljnu količinu raznovrsnih slika (drugačiji ugao fotografisanja, različita životna dob, osvetljenje,...).
+Za treniranje SVM višeklasnog klasifikatora, korišćen je ručno kreiran skup podataka, koji se sastoji od 924 slike. Taj skup čini 9 glumaca (Angelina Jolie, Benedict Cumberbatch, Brad Pitt, Chadwick Boseman, Emma Watson, Keanu Reeves, Robert Downey-Junior, Scarlett Johansson i Tom Holland), uslikanih pod različitim uglovima i situacijama.
+Klasifikatori starosti i pola su pretrenirani modeli dubokih neuronskih mreža trenirani od strane [Tal Hassner i Gil Levi].
+Klasifikator za rasu je pretrenirana neuronska mreža koja se nalazi u DeepFace pajton radnom okviru.
 
 ## Metodologija:
 
-Za detekciju i lokalizaciju koristićemo pretrenirani HAAR klasifikator. Zatim će detektovana lica biti procesirana (centralizacija i poravnavanje ključnih tačaka lica) i prosleđena odgovarajućem ekstraktoru obeležja kao što je HOG, te će potom biti klasifikovana korišćenjem SVM-a i/ili neuronskih mreža.
+Prepoznavanje jeste proces sastavljen od više koraka, počevši od detekcije face. Za detekciju face na slici korišćen je pretrenirani [Haar Cascade Classifier], jer je pogodan za detektciju u realnom vremenu zbog brzine. Zarad boljeg treniranja vrši se centralizacija detektovane face na osnovu pretreniranog modela koji detektuje 68 specifičnih tačaka na licu. Centralizovana lica ekstraktuje [HOG] (Histogram of Oriented Gradients) ekstraktor obeležja, koji redukuje nepotrebne piksele i čuva informacije bitne SVM klasifikatoru koji vrši prepoznavanje. 
+Klasifikatori za prepoznavanje pola, starosti i rase ne koristi ekstraktovana lica, nego direktno isečena sa slike.
+Za prepoznavanje pola i godina korišćeni su pretrenirani modeli duboke neuronske mreže koji su istrenirani od strane [Tal Hassner i Gil Levi]. 
+Za prepoznavanje rase korišćen je DeepFace pajton radni okvir koji u sebi sadrži pretreniranu neuronsku mrežu.
 
 ## Evaluacija:
 
-Za klasifikaciju koristićemo mere performanse kao što su preciznost, tačnost, odziv i F mera, dok ćemo za lokalizaciju koristiti mAP (mean average precision). Kao mera performanse za rad u realnom vremenu koristićemo odnos broja frejmova po sekundi koje model može da obradi, mAP-a i F mere.
+Za klasifikaciju korišćene su mere performanse kao što su preciznost, tačnost, odziv i F mera, a za lokalizaciju mAP (mean Average Precision). Mereni su odnosi tih vrednosti kroz broj frejmova po sekundi koje model može da obradi.
+
+## Pokretanje
+Projekat pokretan sa [Python 3.6].
+Potrebne biblioteke:
+ - [numpy] - [1.19.5+]
+ - [opencv] - [4.3.0+]
+ - [matplotlib] - [3.2.2+]
+ - [dlib] - [19.22.0]
+ - [scikit-learn] - [0.22.1]
+ - [deepface] - [0.0.72]
+
+Za implementaiju korišćeno [Jupyter] okrženje verzije 1.0.0.
+
+## Proces pokretanja u Anaconda3 virtuelnom okruženju
+
+1. Potrebno je da preuzmete projekat sa github repozitorijuma.
+2. Nakon što ste instalirali [Anaconda3] virtuelno okruženje, potrebno je da kreirate sopstveno virtuelno orkuženje tako što se pozicionirate na putanju projekta "soft-computing" u (base) conda prompt-u i pokrenete komande
+    ```sh
+    - conda create --name soft
+    - conda activate soft
+    ```
+3. Potom je potrebno da pokrenete sledece komande (Srećno :))
+    ```sh
+    - conda install ipykernel
+    - conda install python=3.6
+    - conda install -c conda-forge opencv=4.3.0
+    - conda install -c conda-forge dlib
+    - conda install -c anaconda numpy
+    - conda install -c conda-forge scikit-learn
+    - python -m ipykernel install --user --name soft --display-name “Soft”
+    - conda install jupyter
+    - pip install deepface
+    - conda install -c conda-forge matplotlib
+    - jupyter notebook
+    ```
+[Jupyter]: https://jupyter.org/install
+[Python 3.6]: https://www.python.org/downloads/release/python-360/
+[numpy]: https://pypi.org/project/numpy/
+[opencv]: https://pypi.org/project/opencv-python/
+[matplotlib]: https://pypi.org/project/matplotlib/
+[dlib]: https://pypi.org/project/dlib/
+[scikit-learn]: https://pypi.org/project/scikit-learn/
+[deepface]: https://pypi.org/project/deepface/
+[Anaconda3]: https://www.anaconda.com/products/individual
+[Tal Hassner i Gil Levi]: https://talhassner.github.io/home/projects/Adience/Adience-data.html
+[Haar Cascade Classifier]: https://www.cs.cmu.edu/~efros/courses/LBMV07/Papers/viola-cvpr-01.pdf
+[HOG]: https://towardsdatascience.com/hog-histogram-of-oriented-gradients-67ecd887675f
