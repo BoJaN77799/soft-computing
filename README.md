@@ -39,7 +39,7 @@ Za prepoznavanje rase korišćen je DeepFace pajton radni okvir koji u sebi sadr
 Za klasifikaciju korišćene su mere performanse kao što su preciznost, tačnost, odziv i F mera, a za lokalizaciju mAP (mean Average Precision). Mereni su odnosi tih vrednosti kroz broj frejmova po sekundi koje model može da obradi.
 </p>
 
-## Poster
+## Poster:
 ![poster](https://user-images.githubusercontent.com/59332786/150903764-fce53217-b197-498d-a5c7-8f4187e76b6d.jpg)
 <p align="right">
  Klikom na <a href="https://github.com/BoJaN77799/soft-computing/files/7930321/poster.pdf">link</a> možete preuzeti poster ovog projekta.
