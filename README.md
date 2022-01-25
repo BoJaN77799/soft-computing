@@ -40,9 +40,9 @@ Za klasifikaciju korišćene su mere performanse kao što su preciznost, tačnos
 </p>
 
 ## Poster
-![poster_pages-to-jpg-0001](https://user-images.githubusercontent.com/59332786/150902157-07382569-b330-424c-aa9c-cefaa981950f.jpg)
+![poster](https://user-images.githubusercontent.com/59332786/150903764-fce53217-b197-498d-a5c7-8f4187e76b6d.jpg)
 <p align="right">
- Klikom na <a href="https://github.com/BoJaN77799/soft-computing/files/7930235/poster.pdf">link</a> možete preuzeti poster ovog projekta.
+ Klikom na <a href="https://github.com/BoJaN77799/soft-computing/files/7930321/poster.pdf">link</a> možete preuzeti poster ovog projekta.
 </p>
 
 ## Demo:
